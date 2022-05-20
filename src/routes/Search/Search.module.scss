@@ -22,8 +22,8 @@
 
     .inputWrapper {
       display: flex;
-      align-items: center;
       flex: 1;
+      align-items: center;
       padding: 20px 24px;
       font-size: 18px;
       font-weight: 400;
@@ -40,12 +40,12 @@
 
     .searchButton {
       padding: 18px 32px;
-      background-color: #007be9;
-      border-radius: 0 42px 42px 0;
-      color: colors.$WHITE;
       font-size: 18px;
       font-weight: 700;
+      color: colors.$WHITE;
       letter-spacing: -0.018em;
+      background-color: #007be9;
+      border-radius: 0 42px 42px 0;
     }
   }
 }
