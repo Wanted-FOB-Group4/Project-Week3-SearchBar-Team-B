@@ -16,6 +16,8 @@ export const useFilteredQuery = () => {
     cacheTime: Infinity,
     enabled: searchText !== '',
     onSuccess: () => {
+      // 과제 요구사항 중 콘솔에 출력하는 부분이 있기 때문에 Eslint 무시 설정
+      // eslint-disable-next-line no-console
       console.log('fetched')
     },
   })
