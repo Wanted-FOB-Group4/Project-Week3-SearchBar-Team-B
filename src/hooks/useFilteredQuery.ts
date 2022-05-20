@@ -10,12 +10,14 @@ export const useFilteredQuery = () => {
   const fuzzyRegExpString = fuzzyMatchingRegExp(searchText)
   const { data } = useQuery(['#diseaseData', searchText], () => getDiseaseDataFiltered(searchText), {
     refetchOnWindowFocus: false,
-    suspense: true,
-    useErrorBoundary: true,
+    suspense: true, // TODO: suspense 필요 없다면 삭제 가능
+    useErrorBoundary: true, // TODO: Error boundary 필요 없다면 삭제 가능
     staleTime: 60000,
     cacheTime: Infinity,
     enabled: searchText !== '',
     onSuccess: () => {
+      // 과제 요구사항 중 콘솔에 출력하는 부분이 있기 때문에 Eslint 무시 설정
+      // eslint-disable-next-line no-console
       console.log('fetched')
     },
   })
