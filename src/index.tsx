@@ -1,5 +1,4 @@
 import React from 'react'
-import { RecoilRoot } from 'recoil'
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -21,9 +20,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
       <Provider store={store}>
-        <RecoilRoot>
-          <Routes />
-        </RecoilRoot>
+        <Routes />
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>
