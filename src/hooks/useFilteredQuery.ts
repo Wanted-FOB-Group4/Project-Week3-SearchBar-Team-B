@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query'
+
 import { getDiseaseDataFiltered } from 'services'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { getSearchText } from 'states/system'
