@@ -1,5 +1,6 @@
-import { IDiseaseDataItem } from 'types/types'
 import axios from 'axios'
+
+import { IDiseaseDataItem } from 'types/types'
 import { fuzzyMatchingRegExp } from 'utils'
 
 export const getDiseaseDataFiltered = (searchText: string) =>
