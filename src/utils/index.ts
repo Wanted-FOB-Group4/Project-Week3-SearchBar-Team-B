@@ -1,5 +1,3 @@
-import { fuzzyMatchingRegExp } from './fuzzyMathcingRegExp'
+export { fuzzyMatchingRegExp } from './fuzzyMathcingRegExp'
 
-import { makeMarkedString } from './makeMarkedString'
-
-export { fuzzyMatchingRegExp, makeMarkedString }
+export { makeMarkedString } from './makeMarkedString'

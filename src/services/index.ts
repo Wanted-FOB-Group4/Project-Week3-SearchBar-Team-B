@@ -1,5 +1,3 @@
-import { getDiseaseData } from './getDiseaseData'
+export { getDiseaseData } from './getDiseaseData'
 
-import { getDiseaseDataFiltered } from './getDiseaseDataFiltered'
-
-export { getDiseaseData, getDiseaseDataFiltered }
+export { getDiseaseDataFiltered } from './getDiseaseDataFiltered'
