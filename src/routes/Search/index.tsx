@@ -1,10 +1,11 @@
 import { useAppSelector, useFilteredQuery } from 'hooks'
 import { getDropdownState } from 'states/dropdown'
+import { IDiseaseDataItem } from 'types/types'
 
 import SearchBar from './SearchForm'
 import Dropdown from './Dropdown'
+
 import styles from './Search.module.scss'
-import { IDiseaseDataItem } from 'types/types'
 
 const Search = () => {
   const dropdownOpen = useAppSelector(getDropdownState)

@@ -1,5 +1,6 @@
 export const koreanCharAt = (target: string) => {
   const offSet = '가'.charCodeAt(0)
+
   if (target.charCodeAt(0) >= offSet) {
     if ((target.charCodeAt(0) - offSet) % 28 > 0) return target
     const start = target.charCodeAt(0) - offSet - ((target.charCodeAt(0) - offSet) % 28) + offSet

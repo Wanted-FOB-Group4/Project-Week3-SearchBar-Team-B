@@ -25,9 +25,11 @@ const dfs = (
       },
     ]
   }
+
   let result: IResult[] = []
   const newHighlighted = [...highlighted]
   const fuzzyRegExp = new RegExp(fuzzyArr[0])
+
   valueArr.forEach((alpha, idx) => {
     if (fuzzyRegExp.test(alpha)) {
       const isCorrect = alpha === inputArr[0] ? 1 : 0

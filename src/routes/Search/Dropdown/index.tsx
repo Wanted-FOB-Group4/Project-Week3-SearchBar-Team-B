@@ -2,13 +2,13 @@ import { useEffect, useRef } from 'react'
 import { useClickAway, useKey } from 'react-use'
 
 import { useAppDispatch, useAppSelector } from 'hooks'
-import { getFocusedIndex, setDropdownOpen, setFocusedIndex } from 'states/dropdown'
-
-import DropdownItem from './Item'
-import styles from './Dropdown.module.scss'
-import { getInputValue, getSearchValue, setInputValue, setSearchValue } from 'states/search'
-import { IDiseaseDataItem } from 'types/types'
 import { sortFuzzyData } from 'utils'
+import { IDiseaseDataItem } from 'types/types'
+import { getFocusedIndex, setDropdownOpen, setFocusedIndex } from 'states/dropdown'
+import { getInputValue, getSearchValue, setInputValue, setSearchValue } from 'states/search'
+import DropdownItem from './Item'
+
+import styles from './Dropdown.module.scss'
 
 interface IProps {
   diseaseData: IDiseaseDataItem[]
@@ -16,13 +16,15 @@ interface IProps {
 }
 
 const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
-  const searchValue = useAppSelector(getSearchValue)
-  const sortedData = sortFuzzyData({ data: diseaseData, fuzzyRegExpString, searchValue })
   const dispatch = useAppDispatch()
 
+  const searchValue = useAppSelector(getSearchValue)
   const focusedIndex = useAppSelector(getFocusedIndex)
   const inputValue = useAppSelector(getInputValue)
+
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const sortedData = sortFuzzyData({ data: diseaseData, fuzzyRegExpString, searchValue })
 
   const closeDropdown = () => {
     dispatch(setDropdownOpen(false))
