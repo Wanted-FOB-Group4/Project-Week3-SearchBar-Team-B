@@ -4,7 +4,7 @@ import { useClickAway, useKey } from 'react-use'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import { sortFuzzyData } from 'utils'
 import { IDiseaseDataItem } from 'types/types'
-import { getFocusedIndex, setDropdownOpen, setFocusedIndex } from 'states/dropdown'
+import { getFocusedIndex, setDropdownOpen, setFocusedIndex, setIsApiBlocked } from 'states/dropdown'
 import { getInputValue, getSearchValue, setInputValue, setSearchValue } from 'states/search'
 import DropdownItem from './Item'
 
@@ -24,7 +24,7 @@ const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
 
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  const sortedData = sortFuzzyData({ data: diseaseData, fuzzyRegExpString, searchValue })
+  const sortedData = sortFuzzyData({ data: diseaseData, fuzzyRegExpString, searchValue }).slice(0, 6)
 
   const closeDropdown = () => {
     dispatch(setDropdownOpen(false))
@@ -41,6 +41,7 @@ const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
 
   useEffect(() => {
     if (!diseaseData[focusedIndex]) return
+    dispatch(setIsApiBlocked(true))
     dispatch(setInputValue(diseaseData[focusedIndex].sickNm))
   }, [diseaseData, dispatch, focusedIndex])
 
