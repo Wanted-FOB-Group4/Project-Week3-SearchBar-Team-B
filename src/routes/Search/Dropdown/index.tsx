@@ -2,27 +2,28 @@ import { useEffect, useRef } from 'react'
 import { useClickAway, useKey } from 'react-use'
 
 import { useRecoil } from 'hooks/state'
+import { useAppDispatch } from 'hooks'
 import {
-  dropdownOpenState,
   focusedIndexState,
   inputValueState,
   searchKeywordState,
   searchResultState,
+  setDropdownOpen,
 } from 'states/dropdown'
 
 import DropdownItem from './Item'
 import styles from './Dropdown.module.scss'
 
 const Dropdown = () => {
+  const dispatch = useAppDispatch()
   const [focusedIndex, , resetFocusedIndex] = useRecoil(focusedIndexState)
   const [inputValue, setInputValue] = useRecoil(inputValueState)
   const [, setSearchKeyword] = useRecoil(searchKeywordState)
-  const [, setIsDropdownOpen] = useRecoil(dropdownOpenState)
   const [data] = useRecoil(searchResultState)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const closeDropdown = () => {
-    setIsDropdownOpen(false)
+    dispatch(setDropdownOpen(false))
     resetFocusedIndex()
   }
 

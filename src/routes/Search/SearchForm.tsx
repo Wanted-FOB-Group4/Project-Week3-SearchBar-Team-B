@@ -1,12 +1,13 @@
 import { ChangeEvent, FormEvent, KeyboardEvent, useMemo, useRef } from 'react'
 
 import { useRecoil } from 'hooks/state'
+import { useAppDispatch } from 'hooks'
 import {
-  dropdownOpenState,
   focusedIndexState,
   inputValueState,
   searchKeywordState,
   searchResultState,
+  setDropdownOpen,
 } from 'states/dropdown'
 
 import diseaseList from 'data/getDissNameCodeList.json'
@@ -14,10 +15,10 @@ import { SearchIcon } from 'assets/svgs'
 import styles from './Search.module.scss'
 
 const SearchBar = () => {
+  const dispatch = useAppDispatch()
   const [inputValue, setInputValue] = useRecoil(inputValueState)
   const [, setSearchKeyword] = useRecoil(searchKeywordState)
   const [, setFocusedIndex] = useRecoil(focusedIndexState)
-  const [, setIsDropdownOpen] = useRecoil(dropdownOpenState)
   const [data, setData] = useRecoil(searchResultState)
   const inputRef = useRef<HTMLInputElement>(null)
   const result = useMemo(() => diseaseList.response.body.items.item, [])
@@ -39,9 +40,9 @@ const SearchBar = () => {
     setInputValue(value)
 
     if (value.trim()) {
-      setIsDropdownOpen(true)
+      dispatch(setDropdownOpen(true))
     } else {
-      setIsDropdownOpen(false)
+      dispatch(setDropdownOpen(false))
     }
   }
 
