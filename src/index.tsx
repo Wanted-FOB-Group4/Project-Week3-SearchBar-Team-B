@@ -13,10 +13,10 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
-              <Routes />
-      </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
+      <Routes />
+    </QueryClientProvider>
   </React.StrictMode>
 )
 
