@@ -6,14 +6,18 @@ import { getFocusedIndex, setDropdownOpen, setFocusedIndex } from 'states/dropdo
 
 import DropdownItem from './Item'
 import styles from './Dropdown.module.scss'
-import { getInputValue, setInputValue, setSearchValue } from 'states/search'
+import { getInputValue, getSearchValue, setInputValue, setSearchValue } from 'states/search'
 import { IDiseaseDataItem } from 'types/types'
+import { sortFuzzyData } from 'utils'
 
 interface IProps {
   diseaseData: IDiseaseDataItem[]
+  fuzzyRegExpString: string
 }
 
-const Dropdown = ({ diseaseData }: IProps) => {
+const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
+  const searchValue = useAppSelector(getSearchValue)
+  const sortedData = sortFuzzyData({ data: diseaseData, fuzzyRegExpString, searchValue })
   const dispatch = useAppDispatch()
 
   const focusedIndex = useAppSelector(getFocusedIndex)
@@ -42,10 +46,12 @@ const Dropdown = ({ diseaseData }: IProps) => {
     <div ref={dropdownRef} className={styles.contentWrapper}>
       <div className={styles.title}>추천 검색어</div>
       <ul>
-        {diseaseData.map((item, index) => (
+        {sortedData.map((item, index) => (
           <DropdownItem
             key={item.sickCd}
             value={item.sickNm}
+            highlighted={item.highlighted}
+            id={index}
             focused={index === focusedIndex}
             closeDropdown={closeDropdown}
           />

@@ -8,14 +8,14 @@ import { IDiseaseDataItem } from 'types/types'
 
 const Search = () => {
   const dropdownOpen = useAppSelector(getDropdownState)
-  const { data } = useFilteredQuery()
+  const { data, fuzzyRegExpString } = useFilteredQuery()
   const diseaseData: IDiseaseDataItem[] = data || []
 
   return (
     <main className={styles.container}>
       <div className={styles.searchFormWrapper}>
         <SearchBar dataLength={diseaseData.length} />
-        {dropdownOpen && <Dropdown diseaseData={diseaseData} />}
+        {dropdownOpen && <Dropdown diseaseData={diseaseData} fuzzyRegExpString={fuzzyRegExpString} />}
       </div>
     </main>
   )
