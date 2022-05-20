@@ -1,12 +1,13 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
+import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
+import { store } from 'states'
 import reportWebVitals from './reportWebVitals'
-import { store } from './states'
 
+import Routes from './routes'
 import './styles/index.scss'
 
 const queryClient = new QueryClient({
