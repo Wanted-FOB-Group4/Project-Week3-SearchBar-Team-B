@@ -5,7 +5,6 @@ import reactDom from 'react-dom'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { getModalState, setModalState } from 'states/modal'
 import { useAppDispatch } from 'hooks/useAppDispatch'
-import { diseaseApi } from 'services/diseaseApi'
 
 interface IPortal {
   children?: React.ReactNode
@@ -29,14 +28,6 @@ const Modal = () => {
 
   const closeModal = (e: React.MouseEvent<HTMLElement>) => {
     if (backDropRef.current === e.target || closeBtnRef.current === e.target) dispatch(setModalState(closeState))
-  }
-
-  // 추가 정보 api 실행부분 현재 동작 x (문제: xml -> json 변환 필요함)
-  const searchDisease = async (word: string) => {
-    await diseaseApi.searchMoreInfo({ searchText: word }).then((res) => {
-      // eslint-disable-next-line no-console
-      console.log(word, res)
-    })
   }
 
   const handleKeyBoardClose = (e: React.KeyboardEvent) => {
