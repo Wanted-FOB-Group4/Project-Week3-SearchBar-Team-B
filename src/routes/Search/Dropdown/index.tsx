@@ -1,34 +1,27 @@
 import { useEffect, useRef } from 'react'
 import { useClickAway, useKey } from 'react-use'
 
-import { useRecoil } from 'hooks/state'
-import { useAppDispatch } from 'hooks'
-import {
-  focusedIndexState,
-  inputValueState,
-  searchKeywordState,
-  searchResultState,
-  setDropdownOpen,
-} from 'states/dropdown'
+import { useAppDispatch, useAppSelector } from 'hooks'
+import { getData, getFocusedIndex, setDropdownOpen, setFocusedIndex } from 'states/dropdown'
 
 import DropdownItem from './Item'
 import styles from './Dropdown.module.scss'
+import { getInputValue, setInputValue, setSearchValue } from 'states/search'
 
 const Dropdown = () => {
   const dispatch = useAppDispatch()
-  const [focusedIndex, , resetFocusedIndex] = useRecoil(focusedIndexState)
-  const [inputValue, setInputValue] = useRecoil(inputValueState)
-  const [, setSearchKeyword] = useRecoil(searchKeywordState)
-  const [data] = useRecoil(searchResultState)
+  const data = useAppSelector(getData)
+  const focusedIndex = useAppSelector(getFocusedIndex)
+  const inputValue = useAppSelector(getInputValue)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const closeDropdown = () => {
     dispatch(setDropdownOpen(false))
-    resetFocusedIndex()
+    dispatch(setFocusedIndex(-1))
   }
 
   const handleEnterPress = () => {
-    setSearchKeyword(inputValue)
+    dispatch(setSearchValue(inputValue))
     closeDropdown()
   }
 
@@ -37,8 +30,8 @@ const Dropdown = () => {
 
   useEffect(() => {
     if (!data[focusedIndex]) return
-    setInputValue(data[focusedIndex].sickNm)
-  }, [data, focusedIndex, setInputValue])
+    dispatch(setInputValue(data[focusedIndex].sickNm))
+  }, [data, dispatch, focusedIndex])
 
   return (
     <div ref={dropdownRef} className={styles.contentWrapper}>

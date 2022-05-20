@@ -1,8 +1,8 @@
 import { MouseEvent } from 'react'
 import cx from 'classnames'
 
-import { useRecoil } from 'hooks/state'
-import { inputValueState, searchKeywordState } from 'states/dropdown'
+import { useAppDispatch } from 'hooks'
+import { setInputValue, setSearchValue } from 'states/search'
 
 import { SearchIcon } from 'assets/svgs'
 import styles from './Dropdown.module.scss'
@@ -14,12 +14,11 @@ interface Props {
 }
 
 const DropdownItem = ({ value, focused, closeDropdown }: Props) => {
-  const [, setInputValue] = useRecoil(inputValueState)
-  const [, setSearchKeyword] = useRecoil(searchKeywordState)
+  const dispatch = useAppDispatch()
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    setInputValue(e.currentTarget.value)
-    setSearchKeyword(e.currentTarget.value)
+    dispatch(setInputValue(e.currentTarget.value))
+    dispatch(setSearchValue(e.currentTarget.value))
     closeDropdown()
   }
 

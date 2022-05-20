@@ -1,14 +1,8 @@
 import { ChangeEvent, FormEvent, KeyboardEvent, useMemo, useRef } from 'react'
 
-import { useRecoil } from 'hooks/state'
-import { useAppDispatch } from 'hooks'
-import {
-  focusedIndexState,
-  inputValueState,
-  searchKeywordState,
-  searchResultState,
-  setDropdownOpen,
-} from 'states/dropdown'
+import { useAppDispatch, useAppSelector } from 'hooks'
+import { getData, getFocusedIndex, setData, setDropdownOpen, setFocusedIndex } from 'states/dropdown'
+import { getInputValue, setInputValue, setSearchValue } from 'states/search'
 
 import diseaseList from 'data/getDissNameCodeList.json'
 import { SearchIcon } from 'assets/svgs'
@@ -16,10 +10,9 @@ import styles from './Search.module.scss'
 
 const SearchBar = () => {
   const dispatch = useAppDispatch()
-  const [inputValue, setInputValue] = useRecoil(inputValueState)
-  const [, setSearchKeyword] = useRecoil(searchKeywordState)
-  const [, setFocusedIndex] = useRecoil(focusedIndexState)
-  const [data, setData] = useRecoil(searchResultState)
+  const data = useAppSelector(getData)
+  const focusedIndex = useAppSelector(getFocusedIndex)
+  const inputValue = useAppSelector(getInputValue)
   const inputRef = useRef<HTMLInputElement>(null)
   const result = useMemo(() => diseaseList.response.body.items.item, [])
 
@@ -27,17 +20,17 @@ const SearchBar = () => {
     if (e.key === 'Tab') return
 
     if (e.key === 'ArrowUp') {
-      setFocusedIndex((prev) => (prev > 0 ? prev - 1 : prev))
+      dispatch(setFocusedIndex(focusedIndex > 0 ? focusedIndex - 1 : focusedIndex))
     } else if (e.key === 'ArrowDown') {
-      setFocusedIndex((prev) => (prev < data.length - 1 ? prev + 1 : prev))
+      dispatch(setFocusedIndex(focusedIndex < data.length - 1 ? focusedIndex + 1 : focusedIndex))
     } else {
-      setData(result.filter((item) => item.sickNm.includes(inputValue)).slice(0, 10))
+      dispatch(setData(result.filter((item) => item.sickNm.includes(inputValue)).slice(0, 10)))
     }
   }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget as HTMLInputElement
-    setInputValue(value)
+    const { value } = e.currentTarget
+    dispatch(setInputValue(value))
 
     if (value.trim()) {
       dispatch(setDropdownOpen(true))
@@ -49,7 +42,7 @@ const SearchBar = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!inputValue.trim()) return
-    setSearchKeyword(inputValue)
+    dispatch(setSearchValue(inputValue))
   }
 
   return (

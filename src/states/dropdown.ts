@@ -1,17 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import type { RootState } from '.'
-
-// TODO: Remove Recoil
-import { atom } from 'recoil'
 import { IDisease } from 'types/disease'
 
 interface DropdownState {
   dropdownOpen: boolean
+  data: IDisease[]
+  focusedIndex: number
 }
 
 const INITIAL_STATE: DropdownState = {
   dropdownOpen: false,
+  data: [],
+  focusedIndex: -1,
 }
 
 const dropdownSlice = createSlice({
@@ -21,37 +22,19 @@ const dropdownSlice = createSlice({
     setDropdownOpen: (state: DropdownState, action: PayloadAction<boolean>) => {
       state.dropdownOpen = action.payload
     },
+    setData: (state: DropdownState, action: PayloadAction<IDisease[]>) => {
+      state.data = action.payload
+    },
+    setFocusedIndex: (state: DropdownState, action: PayloadAction<number>) => {
+      state.focusedIndex = action.payload
+    },
   },
 })
 
-export const { setDropdownOpen } = dropdownSlice.actions
+export const { setDropdownOpen, setData, setFocusedIndex } = dropdownSlice.actions
 
 export default dropdownSlice.reducer
 
 export const getDropdownState = (state: RootState) => state.dropdown.dropdownOpen
-
-// TODO: Remove Recoil
-// export const dropdownOpenState = atom({
-//   key: 'dropdownOpenState',
-//   default: false,
-// })
-
-export const inputValueState = atom({
-  key: 'inputValueState',
-  default: '',
-})
-
-export const searchKeywordState = atom({
-  key: 'searchKeywordState',
-  default: '',
-})
-
-export const searchResultState = atom<IDisease[]>({
-  key: 'searchResultState',
-  default: [],
-})
-
-export const focusedIndexState = atom({
-  key: 'focusedIndexState',
-  default: -1,
-})
+export const getData = (state: RootState) => state.dropdown.data
+export const getFocusedIndex = (state: RootState) => state.dropdown.focusedIndex
