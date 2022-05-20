@@ -1,18 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import type { RootState } from '.'
-import { IDisease } from 'types/disease'
 
 interface DropdownState {
   dropdownOpen: boolean
-  data: IDisease[]
   focusedIndex: number
+  isApiBlocked: boolean
 }
 
 const INITIAL_STATE: DropdownState = {
   dropdownOpen: false,
-  data: [],
   focusedIndex: -1,
+  isApiBlocked: false,
 }
 
 const dropdownSlice = createSlice({
@@ -22,19 +21,19 @@ const dropdownSlice = createSlice({
     setDropdownOpen: (state: DropdownState, action: PayloadAction<boolean>) => {
       state.dropdownOpen = action.payload
     },
-    setData: (state: DropdownState, action: PayloadAction<IDisease[]>) => {
-      state.data = action.payload
-    },
     setFocusedIndex: (state: DropdownState, action: PayloadAction<number>) => {
       state.focusedIndex = action.payload
+    },
+    setIsApiBlocked: (state: DropdownState, action: PayloadAction<boolean>) => {
+      state.isApiBlocked = action.payload
     },
   },
 })
 
-export const { setDropdownOpen, setData, setFocusedIndex } = dropdownSlice.actions
+export const { setDropdownOpen, setFocusedIndex, setIsApiBlocked } = dropdownSlice.actions
 
 export default dropdownSlice.reducer
 
 export const getDropdownState = (state: RootState) => state.dropdown.dropdownOpen
-export const getData = (state: RootState) => state.dropdown.data
 export const getFocusedIndex = (state: RootState) => state.dropdown.focusedIndex
+export const getIsApiBlocked = (state: RootState) => state.dropdown.isApiBlocked

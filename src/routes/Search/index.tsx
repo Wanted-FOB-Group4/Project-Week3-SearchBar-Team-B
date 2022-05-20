@@ -1,18 +1,21 @@
-import { useAppSelector } from 'hooks'
+import { useAppSelector, useFilteredQuery } from 'hooks'
 import { getDropdownState } from 'states/dropdown'
 
 import SearchBar from './SearchForm'
 import Dropdown from './Dropdown'
 import styles from './Search.module.scss'
+import { IDiseaseDataItem } from 'types/types'
 
 const Search = () => {
   const dropdownOpen = useAppSelector(getDropdownState)
+  const { data } = useFilteredQuery()
+  const diseaseData: IDiseaseDataItem[] = data || []
 
   return (
     <main className={styles.container}>
       <div className={styles.searchFormWrapper}>
-        <SearchBar />
-        {dropdownOpen && <Dropdown />}
+        <SearchBar dataLength={diseaseData.length} />
+        {dropdownOpen && <Dropdown diseaseData={diseaseData} />}
       </div>
     </main>
   )

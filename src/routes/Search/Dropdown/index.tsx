@@ -2,15 +2,20 @@ import { useEffect, useRef } from 'react'
 import { useClickAway, useKey } from 'react-use'
 
 import { useAppDispatch, useAppSelector } from 'hooks'
-import { getData, getFocusedIndex, setDropdownOpen, setFocusedIndex } from 'states/dropdown'
+import { getFocusedIndex, setDropdownOpen, setFocusedIndex } from 'states/dropdown'
 
 import DropdownItem from './Item'
 import styles from './Dropdown.module.scss'
 import { getInputValue, setInputValue, setSearchValue } from 'states/search'
+import { IDiseaseDataItem } from 'types/types'
 
-const Dropdown = () => {
+interface IProps {
+  diseaseData: IDiseaseDataItem[]
+}
+
+const Dropdown = ({ diseaseData }: IProps) => {
   const dispatch = useAppDispatch()
-  const data = useAppSelector(getData)
+
   const focusedIndex = useAppSelector(getFocusedIndex)
   const inputValue = useAppSelector(getInputValue)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -29,15 +34,15 @@ const Dropdown = () => {
   useKey('Enter', handleEnterPress)
 
   useEffect(() => {
-    if (!data[focusedIndex]) return
-    dispatch(setInputValue(data[focusedIndex].sickNm))
-  }, [data, dispatch, focusedIndex])
+    if (!diseaseData[focusedIndex]) return
+    dispatch(setInputValue(diseaseData[focusedIndex].sickNm))
+  }, [diseaseData, dispatch, focusedIndex])
 
   return (
     <div ref={dropdownRef} className={styles.contentWrapper}>
       <div className={styles.title}>추천 검색어</div>
       <ul>
-        {data.map((item, index) => (
+        {diseaseData.map((item, index) => (
           <DropdownItem
             key={item.sickCd}
             value={item.sickNm}

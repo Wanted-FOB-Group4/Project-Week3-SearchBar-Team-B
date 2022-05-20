@@ -1,41 +1,43 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useMemo } from 'react'
+import { ChangeEvent, FormEvent, KeyboardEvent, useEffect } from 'react'
 
-import { useAppDispatch, useAppSelector } from 'hooks'
-import { getData, getFocusedIndex, setData, setDropdownOpen, setFocusedIndex } from 'states/dropdown'
+import { useAppDispatch, useAppSelector, useDebounce } from 'hooks'
+import { getFocusedIndex, getIsApiBlocked, setDropdownOpen, setFocusedIndex, setIsApiBlocked } from 'states/dropdown'
 import { getInputValue, setInputValue, setSearchValue } from 'states/search'
 
-import diseaseList from 'data/getDissNameCodeList.json'
 import { SearchIcon } from 'assets/svgs'
 import styles from './Search.module.scss'
 
-const SearchBar = () => {
+interface IProps {
+  dataLength: number
+}
+
+const SearchBar = ({ dataLength }: IProps) => {
   const dispatch = useAppDispatch()
-  const data = useAppSelector(getData)
+
   const focusedIndex = useAppSelector(getFocusedIndex)
   const inputValue = useAppSelector(getInputValue)
-  const result = useMemo(() => diseaseList.response.body.items.item, [])
+  const isApiBlocked = useAppSelector(getIsApiBlocked)
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Tab') return
-
+    if (e.key === 'Tab') {
+      dispatch(setIsApiBlocked(true))
+    }
     if (e.key === 'ArrowUp') {
+      dispatch(setIsApiBlocked(true))
       dispatch(setFocusedIndex(focusedIndex > 0 ? focusedIndex - 1 : focusedIndex))
     } else if (e.key === 'ArrowDown') {
-      dispatch(setFocusedIndex(focusedIndex < data.length - 1 ? focusedIndex + 1 : focusedIndex))
+      dispatch(setIsApiBlocked(true))
+      dispatch(setFocusedIndex(focusedIndex < dataLength - 1 ? focusedIndex + 1 : focusedIndex))
     } else {
-      dispatch(setData(result.filter((item) => item.sickNm.includes(inputValue)).slice(0, 10)))
+      dispatch(setIsApiBlocked(false))
+      setSearchValue(inputValue)
     }
   }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget
     dispatch(setInputValue(value))
-
-    if (value.trim()) {
-      dispatch(setDropdownOpen(true))
-    } else {
-      dispatch(setDropdownOpen(false))
-    }
+    dispatch(setFocusedIndex(-1))
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -43,6 +45,22 @@ const SearchBar = () => {
     if (!inputValue.trim()) return
     dispatch(setSearchValue(inputValue))
   }
+
+  useDebounce(
+    () => {
+      !isApiBlocked && dispatch(setSearchValue(inputValue))
+    },
+    200,
+    [inputValue]
+  )
+
+  useEffect(() => {
+    if (dataLength > 0) {
+      dispatch(setDropdownOpen(true))
+    } else {
+      dispatch(setDropdownOpen(false))
+    }
+  }, [dataLength, dispatch])
 
   return (
     <form onSubmit={handleSubmit}>
