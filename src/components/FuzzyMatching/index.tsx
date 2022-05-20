@@ -1,26 +1,25 @@
 interface IProps {
-  value: string,
+  value: string
   highlighted: number[]
   id: number
 }
 
-const FuzzyMatch = ({ value, highlighted, id } : IProps) => {
-  let highlightedIdx = 0;
+const FuzzyMatch = ({ value, highlighted, id }: IProps) => {
+  let highlightedIdx = 0
   return (
     <li>
       <p>
-        {value.split("").map((element, idx) => {
+        {value.split('').map((element, idx) => {
           if (highlighted[highlightedIdx] === idx) {
-            highlightedIdx += 1;
-            return <strong key={`${element}-${id}- ${idx}`}>{element}</strong>;
+            highlightedIdx += 1
+            const key = `${element}-${id}- ${idx}`
+            return <strong key={key}>{element}</strong>
           }
-          return element;
+          return element
         })}
       </p>
     </li>
   )
-};
-  
-  
+}
 
-export default FuzzyMatch;
+export default FuzzyMatch
