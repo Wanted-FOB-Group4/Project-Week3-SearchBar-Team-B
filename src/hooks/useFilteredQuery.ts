@@ -10,8 +10,8 @@ export const useFilteredQuery = () => {
   const fuzzyRegExpString = fuzzyMatchingRegExp(searchText)
   const { data } = useQuery(['#diseaseData', searchText], () => getDiseaseDataFiltered(searchText), {
     refetchOnWindowFocus: false,
-    suspense: true,
-    useErrorBoundary: true,
+    suspense: true, // TODO: suspense 필요 없다면 삭제 가능
+    useErrorBoundary: true, // TODO: Error boundary 필요 없다면 삭제 가능
     staleTime: 60000,
     cacheTime: Infinity,
     enabled: searchText !== '',
