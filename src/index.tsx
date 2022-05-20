@@ -1,12 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Provider } from 'react-redux'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import reportWebVitals from './reportWebVitals'
-import { store } from './states'
-
 import './styles/index.scss'
 
 const queryClient = new QueryClient({
@@ -16,12 +13,10 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
-      <Provider store={store}>
-        <Routes />
-      </Provider>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools />
+              <Routes />
+      </QueryClientProvider>
   </React.StrictMode>
 )
 
