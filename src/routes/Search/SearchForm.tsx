@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useMemo, useRef } from 'react'
+import { ChangeEvent, FormEvent, KeyboardEvent, useMemo } from 'react'
 
 import { useAppDispatch, useAppSelector } from 'hooks'
 import { getData, getFocusedIndex, setData, setDropdownOpen, setFocusedIndex } from 'states/dropdown'
@@ -13,7 +13,6 @@ const SearchBar = () => {
   const data = useAppSelector(getData)
   const focusedIndex = useAppSelector(getFocusedIndex)
   const inputValue = useAppSelector(getInputValue)
-  const inputRef = useRef<HTMLInputElement>(null)
   const result = useMemo(() => diseaseList.response.body.items.item, [])
 
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -53,7 +52,6 @@ const SearchBar = () => {
           type='text'
           placeholder='질환명을 입력해 주세요.'
           autoComplete='off'
-          ref={inputRef}
           value={inputValue}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
