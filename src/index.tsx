@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { RecoilRoot } from 'recoil'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import reportWebVitals from './reportWebVitals'
+import Routes from './routes'
 import './styles/index.scss'
 
 const queryClient = new QueryClient({
@@ -13,10 +15,12 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
-              <Routes />
-      </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
+      <RecoilRoot>
+        <Routes />
+      </RecoilRoot>
+    </QueryClientProvider>
   </React.StrictMode>
 )
 
