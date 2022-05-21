@@ -10,6 +10,7 @@ const FOOTER_MAIN_TEXT = {
 const FOOTER_SUB_TEXT = {
   Sub1: '개인정보처리방침',
   Sub2: 'Living healthier by connecting better',
+  Sub3: '과제 제출용 페이지',
 }
 
 const Footer = () => {
@@ -17,13 +18,14 @@ const Footer = () => {
     <footer className={styles.footerWrapper}>
       <div className={styles.contentsWrapper}>
         <div className={styles.mainContents}>
-          <div className={cx(styles.mainText, styles.title)}>{FOOTER_MAIN_TEXT.Title}</div>
-          <div className={styles.mainText}>{FOOTER_MAIN_TEXT.Address}</div>
-          <div className={styles.mainText}>{FOOTER_MAIN_TEXT.Copyright}</div>
+          <span className={cx(styles.mainText, styles.title)}>{FOOTER_MAIN_TEXT.Title}</span>
+          <span className={styles.mainText}>{FOOTER_MAIN_TEXT.Address}</span>
+          <span className={styles.mainText}>{FOOTER_MAIN_TEXT.Copyright}</span>
         </div>
         <div className={styles.subContents}>
-          <div className={styles.subTitle}>{FOOTER_SUB_TEXT.Sub1}</div>
-          <div className={styles.subText}>{FOOTER_SUB_TEXT.Sub2}</div>
+          <span className={styles.subTitle}>{FOOTER_SUB_TEXT.Sub1}</span>
+          <span className={styles.subText}>{FOOTER_SUB_TEXT.Sub2}</span>
+          <span className={cx(styles.subText, styles.notification)}>{FOOTER_SUB_TEXT.Sub3}</span>
         </div>
       </div>
     </footer>

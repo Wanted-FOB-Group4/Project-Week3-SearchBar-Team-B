@@ -45,13 +45,13 @@ const Modal = () => {
         onKeyDown={handleKeyBoardClose}
       >
         <div className={styles.modalWrapper}>
-          <header className={styles.modalHeader}>
+          <div className={styles.modalHeader}>
             <button className={styles.closeBtn} type='button'>
               <span className={styles.closeBtnText} ref={closeBtnRef}>
                 X
               </span>
             </button>
-          </header>
+          </div>
           <section className={styles.modalContent}>
             <div className={styles.contentWrapper}>
               <div className={styles.title}>{title}</div>
