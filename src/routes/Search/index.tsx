@@ -14,8 +14,9 @@ const Search = () => {
   const category = useAppSelector(getCategory)
 
   const { data, fuzzyRegExpString } = useFilteredQuery()
-  const diseaseData: IDiseaseDataItem[] = category !== 'searchLog' ? data || [] : store.get('searchedLog') || []
+  const diseaseData: IDiseaseDataItem[] = category !== 'searchLog' ? data : store.get('searchedLog') || []
   const dataLength = diseaseData.length <= 6 ? diseaseData.length : 6
+
   return (
     <main className={styles.container}>
       <div className={styles.searchFormWrapper}>
