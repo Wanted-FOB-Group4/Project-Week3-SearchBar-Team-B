@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
 import store from 'store'
 
 import { useAppDispatch, useAppSelector, useDebounce } from 'hooks'
@@ -22,7 +22,7 @@ interface IProps {
 
 const SearchForm = ({ dataLength }: IProps) => {
   const dispatch = useAppDispatch()
-
+  const inputRef = useRef<HTMLInputElement>(null)
   const [isFocus, setIsFocus] = useState(false)
   const focusedIndex = useAppSelector(getFocusedIndex)
   const inputValue = useAppSelector(getInputValue)
@@ -58,19 +58,23 @@ const SearchForm = ({ dataLength }: IProps) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (inputRef.current) {
+      inputRef.current.blur()
+    }
     const searchedLog = store.get('searchedLog') || []
 
     if (searchedLog.findIndex((item: IDiseaseDataItem) => item.sickNm === inputValue) === -1) {
+      if (!inputValue.trim()) return
       store.set('searchedLog', [{ sickNm: inputValue }, ...searchedLog].slice(0, 6))
     }
 
     if (!inputValue.trim()) return
-    dispatch(setSearchValue(inputValue))
+    dispatch(setSearchValue(inputValue.split(' ').join('')))
   }
 
   useDebounce(
     () => {
-      !isApiBlocked && dispatch(setSearchValue(inputValue))
+      !isApiBlocked && dispatch(setSearchValue(inputValue.split(' ').join('')))
       !isApiBlocked && inputValue.length !== 0 && dispatch(setCategory('recommend'))
     },
     200,
@@ -89,6 +93,7 @@ const SearchForm = ({ dataLength }: IProps) => {
       <div className={styles.inputWrapper}>
         <SearchIcon />
         <input
+          ref={inputRef}
           type='text'
           placeholder='질환명을 입력해 주세요.'
           autoComplete='off'
