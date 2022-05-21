@@ -6,7 +6,7 @@ interface DropdownState {
   dropdownOpen: boolean
   focusedIndex: number
   isApiBlocked: boolean
-  category: string
+  category: 'searchLog' | 'recommend'
 }
 
 const INITIAL_STATE: DropdownState = {
@@ -29,7 +29,7 @@ const dropdownSlice = createSlice({
     setIsApiBlocked: (state: DropdownState, action: PayloadAction<boolean>) => {
       state.isApiBlocked = action.payload
     },
-    setCategory: (state: DropdownState, action: PayloadAction<string>) => {
+    setCategory: (state: DropdownState, action: PayloadAction<'searchLog' | 'recommend'>) => {
       state.category = action.payload
     },
   },
