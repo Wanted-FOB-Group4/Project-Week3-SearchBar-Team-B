@@ -40,10 +40,10 @@ const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
   useClickAway(dropdownRef, closeDropdown)
 
   useEffect(() => {
-    if (!diseaseData[focusedIndex]) return
+    if (!sortedData[focusedIndex]) return
     dispatch(setIsApiBlocked(true))
-    dispatch(setInputValue(diseaseData[focusedIndex].sickNm))
-  }, [diseaseData, dispatch, focusedIndex])
+    dispatch(setInputValue(sortedData[focusedIndex].sickNm))
+  }, [sortedData, dispatch, focusedIndex])
 
   return (
     <div ref={dropdownRef} className={styles.contentWrapper}>
