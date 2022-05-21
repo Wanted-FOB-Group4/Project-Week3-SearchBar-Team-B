@@ -234,7 +234,11 @@
 
 <hr />
 
-## 기여한 사람들
+  <h2 align="center"> 기여한 사람들 </h2>
+
+<p align="center">
 
 | [🌅 고은채](https://github.com/kec0130) | [🌇 김형석](https://github.com/HyeongSeoku) | [🌠 엄강우](https://github.com/yhnb3) | [🏙 최지윤](https://github.com/chichoon) |
 | --- | --- | --- | --- |
+
+</p>
