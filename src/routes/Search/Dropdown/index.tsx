@@ -41,16 +41,12 @@ const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
   useClickAway(dropdownRef, closeDropdown)
 
   useEffect(() => {
-    if (searchValue.length > 0) {
-      if (!sortedData[focusedIndex]) return
-      dispatch(setIsApiBlocked(true))
-      dispatch(setInputValue(sortedData[focusedIndex].sickNm))
-    } else {
-      if (!diseaseData[focusedIndex]) return
-      dispatch(setIsApiBlocked(true))
-      dispatch(setInputValue(diseaseData[focusedIndex].sickNm))
-    }
-  }, [diseaseData, dispatch, focusedIndex, searchValue, sortedData])
+    if (!sortedData[focusedIndex] || !diseaseData[focusedIndex]) return
+    dispatch(setIsApiBlocked(true))
+    dispatch(
+      setInputValue(category === 'recommend' ? sortedData[focusedIndex].sickNm : diseaseData[focusedIndex].sickNm)
+    )
+  }, [diseaseData, dispatch, focusedIndex, category, sortedData])
 
   const dropdownTitle = category !== 'searchLog' ? '추천검색어' : '검색기록'
 
