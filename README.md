@@ -236,7 +236,7 @@
 
 <h2 align="center">기여한 사람들</h2>
 <p align="center">
-<table>
+<table align="center">
   <thead>
     <tr>
       <th><a href="https://github.com/kec0130">🌅 고은채</a></th>
