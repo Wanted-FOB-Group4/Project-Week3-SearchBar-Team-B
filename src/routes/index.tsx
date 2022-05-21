@@ -1,7 +1,15 @@
-import Search from './Search'
+import Layout from 'components/layout'
+import { Route, Routes } from 'react-router-dom'
+import SearchPage from './SearchPage'
 
 const App = () => {
-  return <Search />
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path='/' element={<SearchPage />} />
+      </Route>
+    </Routes>
+  )
 }
 
 export default App
