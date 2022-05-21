@@ -1,5 +1,7 @@
+import store from 'store'
+
 import { useAppSelector, useFilteredQuery } from 'hooks'
-import { getDropdownState } from 'states/dropdown'
+import { getCategory, getDropdownState } from 'states/dropdown'
 import { IDiseaseDataItem } from 'types/types'
 
 import SearchForm from './SearchForm'
@@ -9,14 +11,16 @@ import styles from './Search.module.scss'
 
 const Search = () => {
   const dropdownOpen = useAppSelector(getDropdownState)
+  const category = useAppSelector(getCategory)
 
   const { data, fuzzyRegExpString } = useFilteredQuery()
-  const diseaseData: IDiseaseDataItem[] = data || []
+  const diseaseData: IDiseaseDataItem[] = category !== 'searchLog' ? data : store.get('searchedLog') || []
+  const dataLength = diseaseData.length <= 6 ? diseaseData.length : 6
 
   return (
     <main className={styles.container}>
       <div className={styles.searchFormWrapper}>
-        <SearchForm dataLength={diseaseData.length} />
+        <SearchForm dataLength={dataLength} />
         {dropdownOpen && <Dropdown diseaseData={diseaseData} fuzzyRegExpString={fuzzyRegExpString} />}
       </div>
     </main>

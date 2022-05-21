@@ -28,6 +28,10 @@
     font-size: 16px;
     transition: 0.1s;
 
+    .clockIcon {
+      fill: colors.$GRAYA;
+    }
+
     &.active,
     &:focus,
     &:hover {

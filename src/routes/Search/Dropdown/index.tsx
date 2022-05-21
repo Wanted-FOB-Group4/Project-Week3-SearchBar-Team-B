@@ -4,9 +4,9 @@ import { useClickAway, useKey } from 'react-use'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import { sortFuzzyData } from 'utils'
 import { IDiseaseDataItem } from 'types/types'
-import { getFocusedIndex, setDropdownOpen, setFocusedIndex, setIsApiBlocked } from 'states/dropdown'
+import { getCategory, getFocusedIndex, setDropdownOpen, setFocusedIndex, setIsApiBlocked } from 'states/dropdown'
 import { getInputValue, getSearchValue, setInputValue, setSearchValue } from 'states/search'
-import DropdownItem from './Item'
+import ConditionalDropdown from './ConditionalDropdown'
 
 import styles from './Dropdown.module.scss'
 
@@ -21,6 +21,7 @@ const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
   const searchValue = useAppSelector(getSearchValue)
   const focusedIndex = useAppSelector(getFocusedIndex)
   const inputValue = useAppSelector(getInputValue)
+  const category = useAppSelector(getCategory)
 
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -40,26 +41,24 @@ const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
   useClickAway(dropdownRef, closeDropdown)
 
   useEffect(() => {
-    if (!diseaseData[focusedIndex]) return
+    if (!sortedData[focusedIndex] || !diseaseData[focusedIndex]) return
     dispatch(setIsApiBlocked(true))
-    dispatch(setInputValue(diseaseData[focusedIndex].sickNm))
-  }, [diseaseData, dispatch, focusedIndex])
+    dispatch(
+      setInputValue(category === 'recommend' ? sortedData[focusedIndex].sickNm : diseaseData[focusedIndex].sickNm)
+    )
+  }, [diseaseData, dispatch, focusedIndex, category, sortedData])
+
+  const dropdownTitle = category !== 'searchLog' ? '추천검색어' : '검색기록'
 
   return (
     <div ref={dropdownRef} className={styles.contentWrapper}>
-      <div className={styles.title}>추천 검색어</div>
-      <ul>
-        {sortedData.map((item, index) => (
-          <DropdownItem
-            key={item.sickCd}
-            value={item.sickNm}
-            highlighted={item.highlighted}
-            id={index}
-            focused={index === focusedIndex}
-            closeDropdown={closeDropdown}
-          />
-        ))}
-      </ul>
+      <div className={styles.title}>{dropdownTitle}</div>
+      <ConditionalDropdown
+        sortedData={sortedData}
+        diseaseData={diseaseData}
+        closeDropdown={closeDropdown}
+        focusedIndex={focusedIndex}
+      />
     </div>
   )
 }
