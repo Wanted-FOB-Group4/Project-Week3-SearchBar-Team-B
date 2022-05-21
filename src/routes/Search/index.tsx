@@ -9,6 +9,7 @@ import styles from './Search.module.scss'
 
 const Search = () => {
   const dropdownOpen = useAppSelector(getDropdownState)
+
   const { data, fuzzyRegExpString } = useFilteredQuery()
   const diseaseData: IDiseaseDataItem[] = data || []
 

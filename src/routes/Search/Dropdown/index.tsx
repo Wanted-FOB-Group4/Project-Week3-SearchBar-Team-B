@@ -36,8 +36,8 @@ const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
     closeDropdown()
   }
 
-  useClickAway(dropdownRef, closeDropdown)
   useKey('Enter', handleEnterPress)
+  useClickAway(dropdownRef, closeDropdown)
 
   useEffect(() => {
     if (!diseaseData[focusedIndex]) return

@@ -14,10 +14,12 @@ interface IProps {
 
 const SearchBar = ({ dataLength }: IProps) => {
   const dispatch = useAppDispatch()
-  const inputRef = useRef<HTMLInputElement>(null)
+
   const focusedIndex = useAppSelector(getFocusedIndex)
   const inputValue = useAppSelector(getInputValue)
   const isApiBlocked = useAppSelector(getIsApiBlocked)
+
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Tab') return
@@ -31,17 +33,18 @@ const SearchBar = ({ dataLength }: IProps) => {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setIsApiBlocked(false))
-    const { value } = e.currentTarget
-    dispatch(setInputValue(value))
+    dispatch(setInputValue(e.currentTarget.value))
     dispatch(setFocusedIndex(-1))
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const searchedLog = store.get('searchedLog') || []
+
     if (searchedLog.findIndex((item: string) => item === inputValue) === -1) {
       store.set('searchedLog', [inputValue, ...searchedLog].slice(0, 6))
     }
+
     if (!inputValue.trim()) return
     dispatch(setSearchValue(inputValue))
   }
