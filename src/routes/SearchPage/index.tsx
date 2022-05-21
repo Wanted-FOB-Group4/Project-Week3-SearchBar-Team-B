@@ -1,6 +1,6 @@
 import styles from './SearchPage.module.scss'
 import { HumanIcon } from 'assets/svgs'
-import SearchForm from 'components/searchForm'
+import TmpSearchForm from 'components/tmpSearchForm'
 import Modal from 'components/modal/index'
 
 const MAIN_TEXT = { first: '국내 모든 임상시험 검색하고', second: '온라인으로 참여하기' }
@@ -16,7 +16,7 @@ const SearchPage = () => {
           <span className={styles.mainText}>{MAIN_TEXT.second}</span>
         </h2>
         <div className={styles.searchFormWrapper}>
-          <SearchForm />
+          <TmpSearchForm />
         </div>
       </section>
       <section className={styles.additionalInfo}>
