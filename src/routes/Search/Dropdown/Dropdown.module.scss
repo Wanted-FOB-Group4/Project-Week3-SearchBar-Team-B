@@ -26,16 +26,15 @@
   }
 
   .item {
+    overflow: hidden;
     display: flex;
     align-items: center;
     width: 100%;
     padding: 8px;
     font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     transition: 0.1s;
-
-    .clockIcon {
-      fill: colors.$GRAYA;
-    }
 
     &.active,
     &:focus,
@@ -43,8 +42,17 @@
       background-color: colors.$GRAYE;
     }
 
+    .lineWrapper {
+      display: flex;
+      align-items: center;
+    }
+
     svg {
       margin-right: 12px;
+    }
+
+    .clockIcon {
+      fill: colors.$GRAYA;
     }
 
     strong {

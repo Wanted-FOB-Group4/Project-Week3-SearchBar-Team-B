@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 56px;
+  padding: 0 16px;
 }
 
 .contents {
@@ -10,6 +10,7 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
+  height: 56px;
   max-width: 1040px;
 }
 

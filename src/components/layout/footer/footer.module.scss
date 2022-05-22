@@ -1,12 +1,11 @@
-@use 'styles/constants/_colors.scss';
+@use 'src/styles/constants/colors';
 
 .footerWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 20%;
-  padding: 40px 0;
+  padding: 40px 16px;
   color: colors.$FOOTERFONTCOLOR;
   background-color: colors.$FOOTERBGCOLOR;
 }
@@ -30,11 +29,10 @@
   flex-direction: column;
   margin-top: 10px;
   font-size: 14px;
+  line-height: 20px;
+  text-align: right;
 
   .subTitle {
-    margin-top: 25px;
-    margin-bottom: 10px;
-    margin-left: auto;
     font-size: 15px;
   }
 
@@ -43,7 +41,6 @@
   }
 
   .notification {
-    margin-left: auto;
     font-size: 20px;
     font-weight: 700;
   }
@@ -58,4 +55,14 @@
 .title {
   margin-bottom: 20px;
   font-size: 17px;
+}
+
+@media screen and (max-width: 600px) {
+  .contentsWrapper {
+    flex-direction: column;
+  }
+
+  .subContents {
+    text-align: left;
+  }
 }

@@ -30,8 +30,10 @@ const DropdownItem = ({ value, focused, closeDropdown }: Props) => {
         onClick={handleClick}
         className={cx(styles.item, { [styles.active]: focused })}
       >
-        <ClockIcon className={styles.clockIcon} />
-        <span>{value}</span>
+        <div className={styles.lineWrapper}>
+          <ClockIcon className={styles.clockIcon} />
+          <span>{value}</span>
+        </div>
       </button>
     </li>
   )
