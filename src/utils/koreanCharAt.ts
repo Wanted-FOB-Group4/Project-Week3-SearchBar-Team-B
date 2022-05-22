@@ -1,3 +1,5 @@
+import escapeRegExp from 'lodash.escaperegexp'
+
 export const koreanCharAt = (target: string) => {
   const firstCode = '가'.charCodeAt(0)
   const lastCode = '힣'.charCodeAt(0)
@@ -11,5 +13,5 @@ export const koreanCharAt = (target: string) => {
     return regExpString
   }
 
-  return target
+  return escapeRegExp(target)
 }

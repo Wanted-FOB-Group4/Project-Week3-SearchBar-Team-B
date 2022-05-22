@@ -1,7 +1,8 @@
-import styles from './SearchPage.module.scss'
 import { HumanIcon } from 'assets/svgs'
-import Modal from 'components/modal/index'
-import Search from 'routes/Search'
+import Modal from 'components/Modal'
+import Search from './Search'
+
+import styles from './SearchPage.module.scss'
 
 const MAIN_TEXT = { first: '국내 모든 임상시험 검색하고', second: '온라인으로 참여하기' }
 const INFO_TEXT = { title: '새로운 임상시험이 등록되면 문자로 알려드려요', button: '임상시험 소식받기' }
@@ -15,9 +16,7 @@ const SearchPage = () => {
           <span className={styles.mainText}>{MAIN_TEXT.first}</span>
           <span className={styles.mainText}>{MAIN_TEXT.second}</span>
         </h2>
-        <div className={styles.searchFormWrapper}>
-          <Search />
-        </div>
+        <Search />
       </section>
       <section className={styles.additionalInfo}>
         <div className={styles.infoContents}>

@@ -1,5 +1,6 @@
-import styles from './footer.module.scss'
 import cx from 'classnames'
+
+import styles from './Footer.module.scss'
 
 const FOOTER_MAIN_TEXT = {
   Title: '(주)휴먼스케이프',

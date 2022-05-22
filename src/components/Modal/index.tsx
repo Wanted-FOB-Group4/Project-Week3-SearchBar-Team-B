@@ -1,15 +1,16 @@
-import styles from './modal.module.scss'
-import cx from 'classnames'
 import React, { useRef } from 'react'
 import reactDom from 'react-dom'
+import cx from 'classnames'
+
 import { useAppSelector } from 'hooks/useAppSelector'
 import { getModalState, setModalState } from 'states/modal'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 
+import styles from './Modal.module.scss'
+
 interface IPortal {
   children?: React.ReactNode
 }
-// TODO : esc 눌렀을때 모달 닫히도록 동작
 
 const Modal = () => {
   const ModalPortal = ({ children }: IPortal) => {

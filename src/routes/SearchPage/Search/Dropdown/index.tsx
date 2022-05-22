@@ -53,12 +53,7 @@ const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
   return (
     <div ref={dropdownRef} className={styles.contentWrapper}>
       <div className={styles.title}>{dropdownTitle}</div>
-      <ConditionalDropdown
-        sortedData={sortedData}
-        diseaseData={diseaseData}
-        closeDropdown={closeDropdown}
-        focusedIndex={focusedIndex}
-      />
+      <ConditionalDropdown sortedData={sortedData} diseaseData={diseaseData} focusedIndex={focusedIndex} />
     </div>
   )
 }
