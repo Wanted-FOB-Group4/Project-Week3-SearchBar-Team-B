@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Fuzzy Matching
 
 #### 목적
@@ -104,6 +105,9 @@
 
    위에서 도출된 결과를 가지고 유사도가 높고 거리가 짧은 순서대로 정렬하여 보여준다.
    <center>
+=======
+<p align="center">
+>>>>>>> 8f5d501 (Document: README 중앙정렬 테스트)
 
 # 검색어 추천이 있는 검색 창 구현
 
@@ -111,7 +115,7 @@
 
 ## 배포 페이지 { 링크 추가 }
 
-</center>
+</p>
 
 # 과제 설명
 
@@ -203,7 +207,11 @@
 
 - `react-query`를 본 과제에서 처음 사용하여 익숙해지는 데까지 시간이 조금 걸렸는데, 같은 검색어를 입력했음에도 검색어 캐싱이 되지 않아 끊임없이 재요청을 하는 문제가 있었습니다. 원인은 `useQuery` 훅의 요청 방식을 이해하지 못하고 `useEffect` 내에서 `searchValue`가 바뀔 때마다 `refetch()`를 시도했기 때문으로, `refetch()`를 사용하지 않고 `cacheTime`과 `staleTime`을 적절히 적용하여 캐싱에 성공하였습니다.
 
-### 기여한 사람들
+<p align="center">
+
+## 기여한 사람들
 
 | [🌅 고은채](https://github.com/kec0130) | [🌇 김형석](https://github.com/HyeongSeoku) | [🌠 엄강우](https://github.com/yhnb3) | [🏙 최지윤](https://github.com/chichoon) |
 | --- | --- | --- | --- |
+
+</p>
