@@ -2,7 +2,7 @@ import { MouseEvent } from 'react'
 import cx from 'classnames'
 
 import { useAppDispatch } from 'hooks'
-import { setInputValue, setSearchValue } from 'states/search'
+import { setInputValue } from 'states/search'
 import { setDropdownOpen } from 'states/dropdown'
 
 import { SearchIcon } from 'assets/svgs'
@@ -21,7 +21,6 @@ const DropdownItem = ({ value, highlighted, focused, id }: Props) => {
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     dispatch(setInputValue(e.currentTarget.value))
-    dispatch(setSearchValue(e.currentTarget.value))
     dispatch(setDropdownOpen(false))
   }
 
