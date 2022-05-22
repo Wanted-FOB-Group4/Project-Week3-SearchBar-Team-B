@@ -1,0 +1,54 @@
+@use 'src/styles/constants/colors';
+
+.contentWrapper {
+  position: absolute;
+  top: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 16px;
+  margin-top: 8px;
+  background-color: colors.$WHITE;
+  border-radius: 20px;
+
+  .title {
+    padding: 6px 8px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: colors.$GRAY6;
+    letter-spacing: -0.018em;
+  }
+
+  p {
+    padding: 8px;
+    font-size: 16px;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    transition: 0.1s;
+
+    .clockIcon {
+      fill: colors.$GRAYA;
+    }
+
+    &.active,
+    &:focus,
+    &:hover {
+      background-color: colors.$GRAYE;
+    }
+
+    svg {
+      margin-right: 12px;
+    }
+
+    strong {
+      font-weight: 900;
+    }
+  }
+}

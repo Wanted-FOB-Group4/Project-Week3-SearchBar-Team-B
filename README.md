@@ -1,46 +1,105 @@
-# Getting Started with Create React App
+## Fuzzy Matching
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### 목적
 
-## Available Scripts
+검색어와 정확히 일치하는 결과가 아닌 검색어와 유사한 결과값들을 도출하는 것이 목적이다.
 
-In the project directory, you can run:
+#### 목표
 
-### `yarn start`
+`Fuzzy Matching`으로 `filtering`된 검색어들을 정해진 규칙에 따라 정렬해서 보여준다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+초성 검색은 별로 의미 없다고 생각하여 제외하였습니다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### 정렬 우선순위
 
-### `yarn test`
+1. `input`에 입력된 글자와 가장 똑같은 글자를 많이 포함하는 검색어
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ex)
 
-### `yarn build`
+   `input` = 가염
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   `searchValues`= [ "간염", "가염"]
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   이러면 "가염"을 더 우선 순위에 둔다는 의미입니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. `fuzzy matching`으로 뽑아낸 글자들 사이의 최대 거리 중 가장 짧은 거리를 가지 검색어
 
-### `yarn eject`
+   ex)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+   `input` = 염증
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   `searchValues`= [ "염증", "염색체증"]
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   이러면 "염증"을 더 우선 순위에 둔다는 의미입니다.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 자세한 구현 방법
 
-## Learn More
+1. FuzzyMatching 구현 방법
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   1. 글자 사이에 글자들이 올 수 있는 정규식만들기
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+      `/(a).*?(b).*?(c)/` => `abc`가 검색어일때 정규식
+
+   2. 한글일때 한글을 인식할 수 있는 정규식을 유니코드로 이용해서 만들기
+
+      1. 종성이 포함된 글자
+
+         `(글자의 유니코드 - 44032) % 28`의 값이 0이 아닐때는 종성이 포함된 글자이므로 범위 없이 바로 글자를 리턴한다.
+
+      2. 종성이 포함되지 않은 글자
+
+         초성을 제외한 글자의 유니코드 시작 숫자 = 44032 => `가`의 유니코드
+
+         종성으로 들어갈 수 있는 글자 갯수 = 27개 => 종성없을때 까지 포함 =>28개
+
+         `가`일때 인식해야할 한글 범위 `가` ~`갛` => 28개
+
+         그럼 유니코드의 범위는 `44032 ~ 44032 + 27`
+
+         그럼 일반화를 하면 `글자의 유니코드 ~ 글자의 유니코드 + 27`범위의 글자를 모두 구하면 된다.
+
+         범위를 구하는 정규식 : `/글자\\u시작유니코드-\\u마지막유니코드/`
+
+      함수로 구현
+
+      ```js
+      const koreanCharAt = (target: string) => {
+        const firstCode = '가'.charCodeAt(0)
+        const lastCode = '힣'.charCodeAt(0)
+        const targetCode = target.charCodeAt(0)
+
+        if (targetCode >= firstCode && targetCode <= lastCode) {
+          if ((targetCode - firstCode) % 28 > 0) return target
+          const start = targetCode
+          const end = start + 27
+          const regExpString = `[${target}\\u${start.toString(16)}-\\u${end.toString(16)}]`
+          return regExpString
+        }
+
+        return target // 한글이 아닌 글자는 그대로 리턴
+      }
+      ```
+
+2. 검색어 내에서 가장 유의미한 Fuzzy Matching 결과 추출하기
+
+   필요한 이유
+
+   - `간염` 이라는 검색어로 인해 `인간의 간염` 이라는 추천 검색어가 나온다면 기존의 fuzzy matching의 결과는
+
+     인**간**의 간**염** 이 결과값으로 나오게 됩니다.
+
+   - `가`라는 검색어로 인해 `가`가 포함된 결과 보다 `간`이라는 글자가 포함된 결과가 나올 수 있습니다.
+
+   구현 방법
+
+   - `DFS`를 이용하여 구현하였으며
+
+     - 해당 글자가 포함된 위치를 찾고 `DFS`
+     - 모든 글자를 찾았을 경우 리턴
+     - DFS를 진행하며 글자가 정확하게 일치하는 정도와 검색어에 따라 도출되는 fuzzy matching이 적용되는 글자 사이의 최대 거리를 저장합니다.
+
+     그 함수들 중에서 가장 유사도가 높고 거리가 짧은 결과를 사용합니다.
+
+3. 추천 검색어들 중 유의미한 결과를 상위에 노출하기
+
+   위에서 도출된 결과를 가지고 유사도가 높고 거리가 짧은 순서대로 정렬하여 보여준다.
