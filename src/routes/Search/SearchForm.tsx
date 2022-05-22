@@ -13,7 +13,7 @@ interface IProps {
   dataLength: number
 }
 
-const SearchBar = ({ dataLength }: IProps) => {
+const SearchForm = ({ dataLength }: IProps) => {
   const dispatch = useAppDispatch()
 
   const focusedIndex = useAppSelector(getFocusedIndex)
@@ -91,4 +91,4 @@ const SearchBar = ({ dataLength }: IProps) => {
   )
 }
 
-export default SearchBar
+export default SearchForm
