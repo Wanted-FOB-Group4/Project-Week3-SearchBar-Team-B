@@ -16,7 +16,7 @@ interface IDiseaseData {
 }
 
 interface IDiseaseDataItem {
-  sickCd: string
+  sickCd?: string
   sickNm: string
 }
 

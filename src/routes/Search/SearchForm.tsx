@@ -1,13 +1,21 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useEffect, useRef } from 'react'
+import { ChangeEvent, FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
 import store from 'store'
 
 import { useAppDispatch, useAppSelector, useDebounce } from 'hooks'
-import { getFocusedIndex, getIsApiBlocked, setDropdownOpen, setFocusedIndex, setIsApiBlocked } from 'states/dropdown'
+import {
+  getFocusedIndex,
+  getIsApiBlocked,
+  setCategory,
+  setDropdownOpen,
+  setFocusedIndex,
+  setIsApiBlocked,
+} from 'states/dropdown'
 import { getInputValue, setInputValue, setSearchValue } from 'states/search'
 
 import { SearchIcon } from 'assets/svgs'
 import styles from './Search.module.scss'
 import { setModalState } from 'states/modal'
+import { IDiseaseDataItem } from 'types/types'
 
 interface IProps {
   dataLength: number
@@ -15,12 +23,19 @@ interface IProps {
 
 const SearchForm = ({ dataLength }: IProps) => {
   const dispatch = useAppDispatch()
-
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [isFocus, setIsFocus] = useState(false)
   const focusedIndex = useAppSelector(getFocusedIndex)
   const inputValue = useAppSelector(getInputValue)
   const isApiBlocked = useAppSelector(getIsApiBlocked)
 
-  const inputRef = useRef<HTMLInputElement>(null)
+  const handleFocus = () => {
+    setIsFocus(true)
+  }
+
+  const handleBlur = () => {
+    setIsFocus(false)
+  }
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Tab') return
@@ -33,13 +48,20 @@ const SearchForm = ({ dataLength }: IProps) => {
   }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget
+    if (value.length === 0) {
+      dispatch(setCategory('searchLog'))
+    }
     dispatch(setIsApiBlocked(false))
-    dispatch(setInputValue(e.currentTarget.value))
+    dispatch(setInputValue(value))
     dispatch(setFocusedIndex(-1))
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (inputRef.current) {
+      inputRef.current.blur()
+    }
     const searchedLog = store.get('searchedLog') || []
 
     // 모달 제어를 위한
@@ -48,27 +70,32 @@ const SearchForm = ({ dataLength }: IProps) => {
 
     if (searchedLog.findIndex((item: string) => item === inputValue) === -1) {
       store.set('searchedLog', [inputValue, ...searchedLog].slice(0, 6))
-    }
+      if (searchedLog.findIndex((item: IDiseaseDataItem) => item.sickNm === inputValue) === -1) {
+        if (!inputValue.trim()) return
+        store.set('searchedLog', [{ sickNm: inputValue }, ...searchedLog].slice(0, 6))
+      }
 
-    if (!inputValue.trim()) return
-    dispatch(setSearchValue(inputValue))
+      if (!inputValue.trim()) return
+      dispatch(setSearchValue(inputValue.replace(/\s+/g, '')))
+    }
   }
 
   useDebounce(
     () => {
-      !isApiBlocked && dispatch(setSearchValue(inputValue))
+      !isApiBlocked && dispatch(setSearchValue(inputValue.replace(/\s+/g, '')))
+      !isApiBlocked && inputValue.length !== 0 && dispatch(setCategory('recommend'))
     },
     200,
     [inputValue]
   )
 
   useEffect(() => {
-    if (dataLength > 0) {
+    if (isFocus) {
       dispatch(setDropdownOpen(true))
     } else {
       dispatch(setDropdownOpen(false))
     }
-  }, [dataLength, dispatch])
+  }, [isFocus, dispatch])
 
   return (
     <form onSubmit={handleSubmit}>
@@ -80,6 +107,8 @@ const SearchForm = ({ dataLength }: IProps) => {
           placeholder='질환명을 입력해 주세요.'
           autoComplete='off'
           value={inputValue}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
         />
