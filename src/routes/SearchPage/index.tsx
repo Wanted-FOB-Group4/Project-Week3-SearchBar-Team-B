@@ -1,7 +1,7 @@
 import styles from './SearchPage.module.scss'
 import { HumanIcon } from 'assets/svgs'
 import Modal from 'components/modal/index'
-import Search from '../Search'
+import Search from 'routes/Search'
 
 const MAIN_TEXT = { first: '국내 모든 임상시험 검색하고', second: '온라인으로 참여하기' }
 const INFO_TEXT = { title: '새로운 임상시험이 등록되면 문자로 알려드려요', button: '임상시험 소식받기' }

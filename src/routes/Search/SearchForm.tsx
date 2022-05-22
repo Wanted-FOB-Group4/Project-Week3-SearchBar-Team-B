@@ -14,6 +14,7 @@ import { getInputValue, setInputValue, setSearchValue } from 'states/search'
 
 import { SearchIcon } from 'assets/svgs'
 import styles from './Search.module.scss'
+import { setModalState } from 'states/modal'
 import { IDiseaseDataItem } from 'types/types'
 
 interface IProps {
@@ -63,13 +64,20 @@ const SearchForm = ({ dataLength }: IProps) => {
     }
     const searchedLog = store.get('searchedLog') || []
 
-    if (searchedLog.findIndex((item: IDiseaseDataItem) => item.sickNm === inputValue) === -1) {
-      if (!inputValue.trim()) return
-      store.set('searchedLog', [{ sickNm: inputValue }, ...searchedLog].slice(0, 6))
-    }
+    // 모달 제어를 위한
+    const openState = { modalOpen: true, title: inputValue }
+    dispatch(setModalState(openState))
 
-    if (!inputValue.trim()) return
-    dispatch(setSearchValue(inputValue.replace(/\s+/g, '')))
+    if (searchedLog.findIndex((item: string) => item === inputValue) === -1) {
+      store.set('searchedLog', [inputValue, ...searchedLog].slice(0, 6))
+      if (searchedLog.findIndex((item: IDiseaseDataItem) => item.sickNm === inputValue) === -1) {
+        if (!inputValue.trim()) return
+        store.set('searchedLog', [{ sickNm: inputValue }, ...searchedLog].slice(0, 6))
+      }
+
+      if (!inputValue.trim()) return
+      dispatch(setSearchValue(inputValue.replace(/\s+/g, '')))
+    }
   }
 
   useDebounce(
@@ -88,6 +96,7 @@ const SearchForm = ({ dataLength }: IProps) => {
       dispatch(setDropdownOpen(false))
     }
   }, [isFocus, dispatch])
+
   return (
     <form onSubmit={handleSubmit}>
       <div className={styles.inputWrapper}>
