@@ -22,6 +22,7 @@ interface IProps {
 const ConditionalDropdown = ({ sortedData, diseaseData, focusedIndex, closeDropdown }: IProps) => {
   const category = useAppSelector(getCategory)
   if (category !== 'searchLog') {
+    if (sortedData.length === 0) return <p>검색어 없음.</p>
     return (
       <ul>
         {sortedData.map((item, index) => (
@@ -37,6 +38,7 @@ const ConditionalDropdown = ({ sortedData, diseaseData, focusedIndex, closeDropd
       </ul>
     )
   }
+  if (diseaseData.length === 0) return <p>검색기록 없음.</p>
   return (
     <ul>
       {diseaseData.map((item, index) => (
