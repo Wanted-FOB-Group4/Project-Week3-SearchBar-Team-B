@@ -107,6 +107,7 @@
    <center>
 =======
 <p align="center">
+<<<<<<< HEAD
 >>>>>>> 8f5d501 (Document: README 중앙정렬 테스트)
 
 # 검색어 추천이 있는 검색 창 구현
@@ -115,6 +116,15 @@
 
 ## 배포 페이지 { 링크 추가 }
 
+=======
+  <h1> 검색어 추천이 있는 검색 창 구현 </h1>
+  <img src="https://img.shields.io/badge/-Typescript-3178C6?style=flat-square&logo=TypeScript&logoColor=white">
+  <img src="https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=React&logoColor=white">
+  <img src="https://img.shields.io/badge/-Sass-CC6699?style=flat-square&logo=Sass&logoColor=white">
+  <img src="https://img.shields.io/badge/-Redux%20Toolkit-764ABC?style=flat-square&logo=Redux&logoColor=white">
+  <img src="https://img.shields.io/badge/-React%20Query-FF4154?style=flat-square&logo=React%20Query&logoColor=white">
+  <a href="/"><h2>배포 페이지</h2></a>
+>>>>>>> f5b4e28 (Document: 중앙 정렬 테스트)
 </p>
 
 # 과제 설명
@@ -208,10 +218,15 @@
 - `react-query`를 본 과제에서 처음 사용하여 익숙해지는 데까지 시간이 조금 걸렸는데, 같은 검색어를 입력했음에도 검색어 캐싱이 되지 않아 끊임없이 재요청을 하는 문제가 있었습니다. 원인은 `useQuery` 훅의 요청 방식을 이해하지 못하고 `useEffect` 내에서 `searchValue`가 바뀔 때마다 `refetch()`를 시도했기 때문으로, `refetch()`를 사용하지 않고 `cacheTime`과 `staleTime`을 적절히 적용하여 캐싱에 성공하였습니다.
 
 <p align="center">
-
-## 기여한 사람들
-
-| [🌅 고은채](https://github.com/kec0130) | [🌇 김형석](https://github.com/HyeongSeoku) | [🌠 엄강우](https://github.com/yhnb3) | [🏙 최지윤](https://github.com/chichoon) |
-| --- | --- | --- | --- |
-
+<h2>기여한 사람들</h2>
+<table>
+  <thead>
+    <tr>
+      <th><a href="https://github.com/kec0130">🌅 고은채</a></th>
+      <th><a href="https://github.com/HyeongSeoku">🌇 김형석</a></th>
+      <th><a href="https://github.com/yhnb3">🌠 엄강우</a></th>
+      <th><a href="https://github.com/chichoon">🏙 최지윤</a></th>
+    </tr>
+  </thead>
+</table>
 </p>
