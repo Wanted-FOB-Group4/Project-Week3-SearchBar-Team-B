@@ -31,6 +31,4 @@ export const { setModalState } = modalSlice.actions
 
 export default modalSlice.reducer
 
-// Selector
-
 export const getModalState = (state: RootState): IModalItem => state.modal.modalState

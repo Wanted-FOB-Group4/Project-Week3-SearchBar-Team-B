@@ -18,6 +18,7 @@ interface Props {
 const DropdownItem = ({ value, highlighted, focused, id, closeDropdown }: Props) => {
   const dispatch = useAppDispatch()
   let highlightedIdx = 0
+
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     dispatch(setInputValue(e.currentTarget.value))
     dispatch(setSearchValue(e.currentTarget.value))
@@ -39,7 +40,7 @@ const DropdownItem = ({ value, highlighted, focused, id, closeDropdown }: Props)
               if (highlighted[highlightedIdx] === idx) {
                 highlightedIdx += 1
                 const key = `${element}-${id}- ${idx}`
-                return <strong key={key}>{element}</strong>
+                return <mark key={key}>{element}</mark>
               }
               return element
             })}

@@ -4,7 +4,14 @@ import { useClickAway, useKey } from 'react-use'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import { sortFuzzyData } from 'utils'
 import { IDiseaseDataItem } from 'types/types'
-import { getCategory, getFocusedIndex, setDropdownOpen, setFocusedIndex, setIsApiBlocked } from 'states/dropdown'
+import {
+  getCategory,
+  getFocusedIndex,
+  setDropdownOpen,
+  setFocusedIndex,
+  setIsApiBlocked,
+  getDropdownState,
+} from 'states/dropdown'
 import { getInputValue, getSearchValue, setInputValue, setSearchValue } from 'states/search'
 import ConditionalDropdown from './ConditionalDropdown'
 
@@ -18,6 +25,7 @@ interface IProps {
 const Dropdown = ({ diseaseData, fuzzyRegExpString }: IProps) => {
   const dispatch = useAppDispatch()
 
+  const dropdownOpen = useAppSelector(getDropdownState)
   const searchValue = useAppSelector(getSearchValue)
   const focusedIndex = useAppSelector(getFocusedIndex)
   const inputValue = useAppSelector(getInputValue)

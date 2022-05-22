@@ -11,11 +11,11 @@ import {
   setIsApiBlocked,
 } from 'states/dropdown'
 import { getInputValue, setInputValue, setSearchValue } from 'states/search'
-
-import { SearchIcon } from 'assets/svgs'
-import styles from './Search.module.scss'
 import { setModalState } from 'states/modal'
 import { IDiseaseDataItem } from 'types/types'
+
+import { SearchIcon } from 'assets/svgs'
+import styles from './SearchForm.module.scss'
 
 interface IProps {
   dataLength: number
@@ -64,7 +64,6 @@ const SearchForm = ({ dataLength }: IProps) => {
     }
     const searchedLog = store.get('searchedLog') || []
 
-    // 모달 제어를 위한
     const openState = { modalOpen: true, title: inputValue }
     dispatch(setModalState(openState))
 
