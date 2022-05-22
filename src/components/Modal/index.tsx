@@ -55,8 +55,10 @@ const Modal = () => {
           </div>
           <section className={styles.modalContent}>
             <div className={styles.contentWrapper}>
-              <div className={styles.title}>{title}</div>
-              <span>을 검색하셨습니다.</span>
+              <div className={styles.textWrapper}>
+                <h2>검색 결과</h2>
+                <span className={styles.title}>{title}</span>
+              </div>
             </div>
           </section>
         </div>
