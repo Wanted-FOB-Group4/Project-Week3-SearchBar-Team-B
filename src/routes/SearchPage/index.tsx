@@ -15,9 +15,7 @@ const SearchPage = () => {
           <span className={styles.mainText}>{MAIN_TEXT.first}</span>
           <span className={styles.mainText}>{MAIN_TEXT.second}</span>
         </h2>
-        <div className={styles.searchFormWrapper}>
-          <Search />
-        </div>
+        <Search />
       </section>
       <section className={styles.additionalInfo}>
         <div className={styles.infoContents}>

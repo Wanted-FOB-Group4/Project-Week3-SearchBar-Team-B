@@ -18,12 +18,12 @@ const Search = () => {
   const dataLength = diseaseData.length <= 6 ? diseaseData.length : 6
 
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.searchFormWrapper}>
         <SearchForm dataLength={dataLength} />
         {dropdownOpen && <Dropdown diseaseData={diseaseData} fuzzyRegExpString={fuzzyRegExpString} />}
       </div>
-    </main>
+    </div>
   )
 }
 
