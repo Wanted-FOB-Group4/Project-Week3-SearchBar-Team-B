@@ -59,7 +59,6 @@ const SearchForm = ({ dataLength }: IProps) => {
     dispatch(setModalState(openState))
 
     if (searchedLog.findIndex((item: string) => item === inputValue) === -1) {
-      store.set('searchedLog', [inputValue, ...searchedLog].slice(0, 6))
       if (searchedLog.findIndex((item: IDiseaseDataItem) => item.sickNm === inputValue) === -1) {
         if (!inputValue.trim()) return
         store.set('searchedLog', [{ sickNm: inputValue }, ...searchedLog].slice(0, 6))
