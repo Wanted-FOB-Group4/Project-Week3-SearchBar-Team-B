@@ -15,21 +15,21 @@
 
 ## 동작
 
-{ 메인 페이지 사진 }
+<img width="640" alt="image" src="https://user-images.githubusercontent.com/37893979/169678035-1dd245f3-3e64-4b5c-b7e3-d6b55ea7c765.png">
 
 - 메인 페이지는 [제공받은 본 링크](https://clinicaltrialskorea.com/)를 클론코딩하여 구성하였습니다.
 
-{ 입력 동작 gif }
+![May-22-2022 13-06-34](https://user-images.githubusercontent.com/37893979/169678101-c2ef21c8-51e2-4fc2-b9cd-0faf967ec70c.gif)
 
 - 검색어를 입력할 때마다 Debouncing을 통해 시간차를 두어 데이터를 요청하고, 응답이 들어오면 Fuzzy Matching 알고리즘을 바로 적용하여 필터링 및 하이라이트된 데이터를 드랍다운에 출력해 주었습니다.
 
-{ 빈 문자열일 경우 검색기록 사진 }
+![May-22-2022 13-08-00](https://user-images.githubusercontent.com/37893979/169678127-47e0a412-fcad-46bb-9ab0-c008c0b46bfd.gif)
+
+- 방향키를 이용하여 드랍다운에서 검색어를 선택할 수 있고, 엔터키 입력 또는 버튼 클릭으로 검색 결과를 모달로 출력해 주었습니다.
+
+<img width="640" alt="image" src="https://user-images.githubusercontent.com/37893979/169678161-d3cd8a80-356e-4f7c-b488-345aae059d2d.png">
 
 - 검색어가 존재하지 않을 경우 로컬 스토리지에 저장한 검색 기록을 불러내어 출력합니다.
-
-{ 검색 결과 클릭 사진 }
-
-- 검색어를 입력하고 Submit할 경우, 모달을 띄워 무엇을 검색하였는지 출력하였습니다.
 
 ## 구현 방법과 이유, 사용한 기술
 
