@@ -10,7 +10,82 @@
 ## 폴더 구조
 
 ```
-폴더 구조
+src
+├── index.tsx
+├── react-app-env.d.ts
+├── reportWebVitals.ts
+├── setupTests.ts
+├── global.d.ts
+├── assets
+│   └── svgs
+│       ├── clock.svg
+│       ├── headerLogo.svg
+│       ├── human.svg
+│       ├── index.ts
+│       └── search.svg
+├── components
+│   ├── Layout
+│   │   ├── Footer
+│   │   │   ├── Footer.module.scss
+│   │   │   └── index.tsx
+│   │   ├── Header
+│   │   │   ├── Header.module.scss
+│   │   │   └── index.tsx
+│   │   ├── Layout.module.scss
+│   │   └── index.tsx
+│   └── Modal
+│       ├── Modal.module.scss
+│       └── index.tsx
+├── hooks
+│   ├── index.ts
+│   ├── useAppDispatch.ts
+│   ├── useAppSelector.ts
+│   ├── useDebounce.ts
+│   └── useFilteredQuery.ts
+├── routes
+│   ├── SearchPage
+│   │   ├── Search
+│   │   │   ├── Dropdown
+│   │   │   │   ├── ConditionalDropdown.tsx
+│   │   │   │   ├── Dropdown.module.scss
+│   │   │   │   ├── RecommendItem.tsx
+│   │   │   │   ├── SearchLogItem.tsx
+│   │   │   │   └── index.tsx
+│   │   │   ├── Search.module.scss
+│   │   │   ├── SearchForm
+│   │   │   │   ├── SearchForm.module.scss
+│   │   │   │   └── index.tsx
+│   │   │   └── index.tsx
+│   │   ├── SearchPage.module.scss
+│   │   └── index.tsx
+│   └── index.tsx
+├── services
+│   ├── getDiseaseData.ts
+│   ├── getDiseaseDataFiltered.ts
+│   └── index.ts
+├── states
+│   ├── dropdown.ts
+│   ├── index.ts
+│   ├── modal.ts
+│   └── search.ts
+├── styles
+│   ├── base
+│   │   ├── _fonts.scss
+│   │   ├── _more.scss
+│   │   └── _reset.scss
+│   ├── constants
+│   │   └── _colors.scss
+│   ├── index.scss
+│   └── index.ts
+├── types
+│   └── types.d.ts
+└── utils
+    ├── fuzzyMathcingRegExp.ts
+    ├── index.ts
+    ├── koreanCharAt.ts
+    ├── makeMarkedString.ts
+    └── sortFuzzyData.ts
+
 ```
 
 ## 동작
