@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Fuzzy Matching
 
 #### 목적
@@ -131,6 +132,15 @@
 </div>
 <hr />
 >>>>>>> 184290a (Document: 중앙정렬)
+=======
+<p align="center">
+  <h1 align="center"> 검색어 추천이 있는 검색 창 구현 </h1>
+  <p align="center">
+  <img src="https://img.shields.io/badge/-Typescript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/-Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"> <img src="https://img.shields.io/badge/-Redux%20Toolkit-764ABC?style=flat-square&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/-React%20Query-FF4154?style=flat-square&logo=React%20Query&logoColor=white">
+  </p>
+  <a href="/"><h2 align="center">배포 페이지</h2></a>
+</p>
+>>>>>>> 069229b (Document: README 중앙정렬)
 
 # 과제 설명
 
@@ -224,16 +234,7 @@
 
 <hr />
 
-<div style="text-align:center; display: flex; flex-direction: column; align-items:center;">
-<h2>기여한 사람들</h2>
-<table>
-  <thead>
-    <tr>
-      <th><a href="https://github.com/kec0130">🌅 고은채</a></th>
-      <th><a href="https://github.com/HyeongSeoku">🌇 김형석</a></th>
-      <th><a href="https://github.com/yhnb3">🌠 엄강우</a></th>
-      <th><a href="https://github.com/chichoon">🏙 최지윤</a></th>
-    </tr>
-  </thead>
-</table>
-</div>
+## 기여한 사람들
+
+| [🌅 고은채](https://github.com/kec0130) | [🌇 김형석](https://github.com/HyeongSeoku) | [🌠 엄강우](https://github.com/yhnb3) | [🏙 최지윤](https://github.com/chichoon) |
+| --- | --- | --- | --- |
