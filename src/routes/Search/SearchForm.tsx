@@ -69,12 +69,12 @@ const SearchForm = ({ dataLength }: IProps) => {
     }
 
     if (!inputValue.trim()) return
-    dispatch(setSearchValue(inputValue.split(' ').join('')))
+    dispatch(setSearchValue(inputValue.replace(/\s+/g, '')))
   }
 
   useDebounce(
     () => {
-      !isApiBlocked && dispatch(setSearchValue(inputValue.split(' ').join('')))
+      !isApiBlocked && dispatch(setSearchValue(inputValue.replace(/\s+/g, '')))
       !isApiBlocked && inputValue.length !== 0 && dispatch(setCategory('recommend'))
     },
     200,
