@@ -1,138 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-## Fuzzy Matching
-
-#### 목적
-
-검색어와 정확히 일치하는 결과가 아닌 검색어와 유사한 결과값들을 도출하는 것이 목적이다.
-
-#### 목표
-
-`Fuzzy Matching`으로 `filtering`된 검색어들을 정해진 규칙에 따라 정렬해서 보여준다.
-
-초성 검색은 별로 의미 없다고 생각하여 제외하였습니다.
-
-#### 정렬 우선순위
-
-1. `input`에 입력된 글자와 가장 똑같은 글자를 많이 포함하는 검색어
-
-   ex)
-
-   `input` = 가염
-
-   `searchValues`= [ "간염", "가염"]
-
-   이러면 "가염"을 더 우선 순위에 둔다는 의미입니다.
-
-2. `fuzzy matching`으로 뽑아낸 글자들 사이의 최대 거리 중 가장 짧은 거리를 가지 검색어
-
-   ex)
-
-   `input` = 염증
-
-   `searchValues`= [ "염증", "염색체증"]
-
-   이러면 "염증"을 더 우선 순위에 둔다는 의미입니다.
-
-### 자세한 구현 방법
-
-1. FuzzyMatching 구현 방법
-
-   1. 글자 사이에 글자들이 올 수 있는 정규식만들기
-
-      `/(a).*?(b).*?(c)/` => `abc`가 검색어일때 정규식
-
-   2. 한글일때 한글을 인식할 수 있는 정규식을 유니코드로 이용해서 만들기
-
-      1. 종성이 포함된 글자
-
-         `(글자의 유니코드 - 44032) % 28`의 값이 0이 아닐때는 종성이 포함된 글자이므로 범위 없이 바로 글자를 리턴한다.
-
-      2. 종성이 포함되지 않은 글자
-
-         초성을 제외한 글자의 유니코드 시작 숫자 = 44032 => `가`의 유니코드
-
-         종성으로 들어갈 수 있는 글자 갯수 = 27개 => 종성없을때 까지 포함 =>28개
-
-         `가`일때 인식해야할 한글 범위 `가` ~`갛` => 28개
-
-         그럼 유니코드의 범위는 `44032 ~ 44032 + 27`
-
-         그럼 일반화를 하면 `글자의 유니코드 ~ 글자의 유니코드 + 27`범위의 글자를 모두 구하면 된다.
-
-         범위를 구하는 정규식 : `/글자\\u시작유니코드-\\u마지막유니코드/`
-
-      함수로 구현
-
-      ```js
-      const koreanCharAt = (target: string) => {
-        const firstCode = '가'.charCodeAt(0)
-        const lastCode = '힣'.charCodeAt(0)
-        const targetCode = target.charCodeAt(0)
-
-        if (targetCode >= firstCode && targetCode <= lastCode) {
-          if ((targetCode - firstCode) % 28 > 0) return target
-          const start = targetCode
-          const end = start + 27
-          const regExpString = `[${target}\\u${start.toString(16)}-\\u${end.toString(16)}]`
-          return regExpString
-        }
-
-        return target // 한글이 아닌 글자는 그대로 리턴
-      }
-      ```
-
-2. 검색어 내에서 가장 유의미한 Fuzzy Matching 결과 추출하기
-
-   필요한 이유
-
-   - `간염` 이라는 검색어로 인해 `인간의 간염` 이라는 추천 검색어가 나온다면 기존의 fuzzy matching의 결과는
-
-     인**간**의 간**염** 이 결과값으로 나오게 됩니다.
-
-   - `가`라는 검색어로 인해 `가`가 포함된 결과 보다 `간`이라는 글자가 포함된 결과가 나올 수 있습니다.
-
-   구현 방법
-
-   - `DFS`를 이용하여 구현하였으며
-
-     - 해당 글자가 포함된 위치를 찾고 `DFS`
-     - 모든 글자를 찾았을 경우 리턴
-     - DFS를 진행하며 글자가 정확하게 일치하는 정도와 검색어에 따라 도출되는 fuzzy matching이 적용되는 글자 사이의 최대 거리를 저장합니다.
-
-     그 함수들 중에서 가장 유사도가 높고 거리가 짧은 결과를 사용합니다.
-
-3. 추천 검색어들 중 유의미한 결과를 상위에 노출하기
-
-   위에서 도출된 결과를 가지고 유사도가 높고 거리가 짧은 순서대로 정렬하여 보여준다.
-   <center>
-=======
-<p align="center">
-<<<<<<< HEAD
->>>>>>> 8f5d501 (Document: README 중앙정렬 테스트)
-
-# 검색어 추천이 있는 검색 창 구현
-
-![TS badge](https://img.shields.io/badge/-Typescript-3178C6?style=flat-square&logo=TypeScript&logoColor=white) ![react badge](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=React&logoColor=white) ![sass badge](https://img.shields.io/badge/-Sass-CC6699?style=flat-square&logo=Sass&logoColor=white) ![redux badge](https://img.shields.io/badge/-Redux%20Toolkit-764ABC?style=flat-square&logo=Redux&logoColor=white) ![react-query badge](https://img.shields.io/badge/-React%20Query-FF4154?style=flat-square&logo=React%20Query&logoColor=white)
-
-## 배포 페이지 { 링크 추가 }
-
-=======
-=======
-<div style="text-align:center">
->>>>>>> 184290a (Document: 중앙정렬)
-  <h1> 검색어 추천이 있는 검색 창 구현 </h1>
-  <img src="https://img.shields.io/badge/-Typescript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/-Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"> <img src="https://img.shields.io/badge/-Redux%20Toolkit-764ABC?style=flat-square&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/-React%20Query-FF4154?style=flat-square&logo=React%20Query&logoColor=white">
-  <a href="/"><h2>배포 페이지</h2></a>
-<<<<<<< HEAD
->>>>>>> f5b4e28 (Document: 중앙 정렬 테스트)
-</p>
-=======
-</div>
-<hr />
->>>>>>> 184290a (Document: 중앙정렬)
-=======
 <p align="center">
   <h1 align="center"> 검색어 추천이 있는 검색 창 구현 </h1>
   <p align="center">
@@ -140,7 +5,6 @@
   </p>
   <a href="/"><h2 align="center">배포 페이지</h2></a>
 </p>
->>>>>>> 069229b (Document: README 중앙정렬)
 
 # 과제 설명
 
@@ -225,6 +89,68 @@
 - 응답이 돌아올 때마다 `fetched` 문구를 콘솔에 출력하여 쉽게 볼 수 있도록 하였습니다.
 
 ### Fuzzy Matching 알고리즘
+
+- 검색어와 정확히 일치하는 결과가 아닌, 검색어와 유사한 결과값들을 도출하기 위해 Fuzzy Matching을 도입하였습니다.
+
+- `Fuzzy Matching`으로 1차 필터링을 거치고, 이 결과값을 정해진 규칙에 따라 정렬해서 보여주었으며, 초성 검색은 검색어 종류 (질환명) 특성상 많이 사용되지 않을 것으로 예상되어 제외하였습니다.
+
+- 자세한 구현 방법은 다음과 같습니다.
+
+  1.  글자 사이에 다른 글자가 배치될 수 있도록 정규식을 만듭니다.
+
+      ```
+      /(a).*?(b).*?(c)/
+
+      // `abc`가 검색어일 때의 정규식
+      ```
+
+  2.  검색어가 한글일 때, 유니코드를 이용하여 한글을 인식할 수 있는 정규식을 만들어 줍니다.
+
+      1. 글자의 유니코드에서 44032를 뺀 값을 28로 나눈 나머지가 0이 아니면, 종성이 포함된 글자이므로 다른 처리 없이 글자를 바로 반환합니다.
+
+      2. 초성만 존재하는 경우를 제외하면, 한글의 유니코드 시작점은 44032로, 이는 `가`의 코드에 해당합니다.
+
+         - 종성으로 들어갈 수 있는 글자의 개수가 27종류이고, 종성이 없는 경우를 포함하면 28종류의 코드가 나옵니다.
+
+         - 예를 들면, `가`를 입력했을 때, `가` 부터 `갛` 까지의 모든 글자가 인식되어야 하므로 28종류의 글자가 반환되어야 합니다.
+
+         - 따라서 입력된 글자에 종성이 존재하지 않을 경우, 모든 종성의 경우의 수를 구하기 위해 현재 글자의 유니코드부터 글자의 유니코드 + 27까지의 값을 반환합니다.
+
+         - 모든 유니코드 경우의 수를 반환하는 정규식은 다음과 같습니다.
+
+         ```
+         입력한 글자\\u시작 유니코드 - \\u마지막 유니코드/
+         ```
+
+      - 위의 두 경우를 처리하는 함수가 `koreanCharAt` 입니다.
+
+  3.  검색어 내에서 가장 유의미한 Fuzzy Matching 결과를 추출합니다.
+
+      - `간염`을 검색하여 `인간의 간염` 이라는 추천 검색어를 얻었을 때, 단순 Fuzzy Matching만 적용하면 인**간**의 간**염** 과 같이 멀리 떨어져 있는 결과가 매칭될 가능성이 생깁니다.
+
+      - 만약 `가염` 과 같이 종성이 없는 글자를 검색할 경우, 종성이 있는 글자가 원본 글자와 정확하게 일치하지 않음에도 불구하고 우선순위가 더 높게 매칭될 수 있어 이를 방지하고자 매커니즘을 도입하였습니다.
+
+#### 정렬 우선순위
+
+1. `input`에 입력된 글자와 가장 똑같은 글자를 많이 포함하는 검색어
+
+   ```
+   input = 가염
+
+   searchValues = [ "간염", "가염" ]
+
+   // 원본 문자열과 더 가까운 가염 이 간염 보다 우선순위가 더 높습니다.
+   ```
+
+2. `fuzzy matching`으로 뽑아낸 글자들 사이의 최대 거리 중 가장 짧은 거리를 가진 검색어
+
+   ```
+   input = 염증
+
+   searchValues = [ "염증", "염색체증" ]
+
+   // 염증 이 염색체증 보다 더 가까이 붙어있으므로, 우선순위가 더 높습니다.
+   ```
 
 ### 어려웠던 점
 
