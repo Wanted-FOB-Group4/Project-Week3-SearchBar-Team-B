@@ -16,10 +16,9 @@ interface IProps {
   sortedData: ISortedItem[]
   focusedIndex: number
   diseaseData: IDiseaseDataItem[]
-  closeDropdown: () => void
 }
 
-const ConditionalDropdown = ({ sortedData, diseaseData, focusedIndex, closeDropdown }: IProps) => {
+const ConditionalDropdown = ({ sortedData, diseaseData, focusedIndex }: IProps) => {
   const category = useAppSelector(getCategory)
   if (category !== 'searchLog') {
     if (sortedData.length === 0) return <p>검색어 없음.</p>
@@ -32,7 +31,6 @@ const ConditionalDropdown = ({ sortedData, diseaseData, focusedIndex, closeDropd
             highlighted={item.highlighted}
             id={index}
             focused={index === focusedIndex}
-            closeDropdown={closeDropdown}
           />
         ))}
       </ul>
@@ -42,12 +40,7 @@ const ConditionalDropdown = ({ sortedData, diseaseData, focusedIndex, closeDropd
   return (
     <ul>
       {diseaseData.map((item, index) => (
-        <SearchLogItem
-          key={item.sickNm}
-          value={item.sickNm}
-          focused={index === focusedIndex}
-          closeDropdown={closeDropdown}
-        />
+        <SearchLogItem key={item.sickNm} value={item.sickNm} focused={index === focusedIndex} />
       ))}
     </ul>
   )

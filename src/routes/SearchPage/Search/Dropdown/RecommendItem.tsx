@@ -3,6 +3,7 @@ import cx from 'classnames'
 
 import { useAppDispatch } from 'hooks'
 import { setInputValue, setSearchValue } from 'states/search'
+import { setDropdownOpen } from 'states/dropdown'
 
 import { SearchIcon } from 'assets/svgs'
 import styles from './Dropdown.module.scss'
@@ -12,17 +13,16 @@ interface Props {
   highlighted: number[]
   focused: boolean
   id: number
-  closeDropdown: () => void
 }
 
-const DropdownItem = ({ value, highlighted, focused, id, closeDropdown }: Props) => {
+const DropdownItem = ({ value, highlighted, focused, id }: Props) => {
   const dispatch = useAppDispatch()
   let highlightedIdx = 0
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     dispatch(setInputValue(e.currentTarget.value))
     dispatch(setSearchValue(e.currentTarget.value))
-    closeDropdown()
+    dispatch(setDropdownOpen(false))
   }
 
   return (
