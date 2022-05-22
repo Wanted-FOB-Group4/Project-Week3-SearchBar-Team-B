@@ -1,10 +1,9 @@
+<h1 align="center"> 검색어 추천이 있는 검색 창 구현 </h1>
 <p align="center">
-  <h1 align="center"> 검색어 추천이 있는 검색 창 구현 </h1>
-  <p align="center">
   <img src="https://img.shields.io/badge/-Typescript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/-Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"> <img src="https://img.shields.io/badge/-Redux%20Toolkit-764ABC?style=flat-square&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/-React%20Query-FF4154?style=flat-square&logo=React%20Query&logoColor=white">
-  </p>
-  <a href="https://discord.com/channels/961299974782603274/970865725667430480/977756645545349172"><h2 align="center">배포 페이지</h2></a>
 </p>
+
+<h2 align="center"><a href="https://project-week3-search-bar-team-b.vercel.app/">배포 페이지</a></h2>
 
 # 과제 설명
 
