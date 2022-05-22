@@ -3,7 +3,7 @@
   <p align="center">
   <img src="https://img.shields.io/badge/-Typescript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/-Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"> <img src="https://img.shields.io/badge/-Redux%20Toolkit-764ABC?style=flat-square&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/-React%20Query-FF4154?style=flat-square&logo=React%20Query&logoColor=white">
   </p>
-  <a href="/"><h2 align="center">배포 페이지</h2></a>
+  <a href="https://discord.com/channels/961299974782603274/970865725667430480/977756645545349172"><h2 align="center">배포 페이지</h2></a>
 </p>
 
 # 과제 설명
