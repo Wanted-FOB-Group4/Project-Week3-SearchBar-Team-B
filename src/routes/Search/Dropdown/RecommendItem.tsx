@@ -32,17 +32,19 @@ const DropdownItem = ({ value, highlighted, focused, id, closeDropdown }: Props)
         onClick={handleClick}
         className={cx(styles.item, { [styles.active]: focused })}
       >
-        <SearchIcon />
-        <span>
-          {value.split('').map((element, idx) => {
-            if (highlighted[highlightedIdx] === idx) {
-              highlightedIdx += 1
-              const key = `${element}-${id}- ${idx}`
-              return <strong key={key}>{element}</strong>
-            }
-            return element
-          })}
-        </span>
+        <div className={styles.lineWrapper}>
+          <SearchIcon />
+          <span>
+            {value.split('').map((element, idx) => {
+              if (highlighted[highlightedIdx] === idx) {
+                highlightedIdx += 1
+                const key = `${element}-${id}- ${idx}`
+                return <strong key={key}>{element}</strong>
+              }
+              return element
+            })}
+          </span>
+        </div>
       </button>
     </li>
   )
